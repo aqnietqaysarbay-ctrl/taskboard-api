@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Trello</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <h2>✦ TaskFlow</h2>
+        <p class="section-label">WORKSPACE</p>
+        <button id="newBoardBtn">+ New board</button>
+        <div id="boardList"></div>
+      </aside>
+
+      <main class="main">
+        <header class="header">
+          <div>
+            <p class="subtitle">TEAM WORKSPACE</p>
+            <h1 id="boardTitle">Web Club Project</h1>
+          </div>
+          <div class="header-actions">
+            <button id="inviteBtn" class="secondary-btn">
+              + Invite Member
+            </button>
+            <button id="newTaskBtn" class="primary-btn">+ New Task</button>
+          </div>
+        </header>
+
+        <section class="members">
+          <span>Team members:</span>
+          <div id="memberList"></div>
+        </section>
+
+        <section class="board">
+          <div class="column">
+            <div class="column-heading">
+              <h3>To Do</h3>
+              <span id="todoCount">0</span>
+            </div>
+            <div id="todo" class="task-list"></div>
+            <button class="add-column-task" data-status="todo">
+              + Add a task
+            </button>
+          </div>
+
+          <div class="column">
+            <div class="column-heading">
+              <h3>In Progress</h3>
+              <span id="progressCount">0</span>
+            </div>
+            <div id="progress" class="task-list"></div>
+            <button class="add-column-task" data-status="progress">
+              + Add a task
+            </button>
+          </div>
+
+          <div class="column">
+            <div class="column-heading">
+              <h3>Done</h3>
+              <span id="doneCount">0</span>
+            </div>
+            <div id="done" class="task-list"></div>
+            <button class="add-column-task" data-status="done">
+              + Add a task
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TASK MODAL -->
+    <dialog id="taskDialog">
+      <form id="taskForm">
+        <h2>Create new task</h2>
+
+        <label for="taskTitle">Task title</label>
+        <input id="taskTitle" required placeholder="Enter task title" />
+
+        <label for="taskDescription">Description</label>
+        <textarea
+          id="taskDescription"
+          placeholder="Describe the task"
+        ></textarea>
+
+        <label for="taskAssignee">Assign to</label>
+        <select id="taskAssignee"></select>
+
+        <label for="taskStatus">Status</label>
+        <select id="taskStatus">
+          <option value="todo">To Do</option>
+          <option value="progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="cancelTaskBtn">
+            Cancel
+          </button>
+          <button type="submit" class="primary-btn">Create Task</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- INVITE MODAL -->
+    <dialog id="inviteDialog">
+      <form id="inviteForm">
+        <h2>Invite team member</h2>
+        <p class="hint">Add a member using their email address.</p>
+
+        <label for="inviteEmail">Email address</label>
+        <input
+          id="inviteEmail"
+          type="email"
+          required
+          placeholder="alex@example.com"
+        />
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="cancelInviteBtn">
+            Cancel
+          </button>
+          <button type="submit" class="primary-btn">Add Member</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="script.js" defer></script>
+  </body>
+</html>
