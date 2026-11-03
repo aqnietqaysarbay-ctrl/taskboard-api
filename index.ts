@@ -91,7 +91,7 @@ app.post("/auth/login", async (req, res) => {
   }
 });
 
-//////////ceate board
+//////////create board
 app.post("/boards", async (req, res) => {
   try {
     const body = req.body;
@@ -103,29 +103,59 @@ app.post("/boards", async (req, res) => {
       "INSERT INTO boards (title, owner_id) VALUES ($1, $2) RETURNING *",
       [body.title, ownerID],
     );
+    return res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Login failed" });
   }
 });
+/////////boards im in
+app.get("/boards", async (req, res) => {
+  try {
+    const userID = 1;
+    const result = await pool.query(
+      "SELECT * FROM boards JOIN board_members ON boards.id = board_members.board_id WHERE board_members.user_id = $1",
+      [userID],
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to get boards" });
+  }
+});
+///////////boards with its task and owners
+app.get("/boards/:id", async (req, res) => {
+  try {
+    const boardID = Number(req.params.id);
+    const board = await pool.query("SELECT * FROM boards WHERE id = $1", [
+      boardID,
+    ]);
 
-// ///////////get tasks
-// app.get("/boards/:id/tasks", async (req, res) => {
-//   try {
-//     const boardID = Number(req.params.id);
+    if (board.rows.length === 0) {
+      return res.status(404).json({ error: "Board not found" });
+    }
 
-//     const result = await pool.query("SELECT * FROM tasks WHERE board_id = $1", [
-//       boardID,
-//     ]);
+    const tasks = await pool.query("SELECT * FROM tasks WHERE board_id = $1", [
+      boardID,
+    ]);
 
-//     res.status(200).json(result.rows);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Failed to load tasks" });
-//   }
-// });
+    const members = await pool.query(
+      "SELECT users.id, users.name, users.email FROM users JOIN board_members ON users.id = board_members.user_id WHERE board_members.board_id = $1",
+      [boardID],
+    );
 
-//////////////
+    return res.status(200).json({
+      board: board.rows[0],
+      tasks: tasks.rows,
+      members: members.rows,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to get board" });
+  }
+});
+
+//////////////////
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
