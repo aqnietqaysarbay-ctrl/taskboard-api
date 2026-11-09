@@ -60,21 +60,43 @@ button {
   font-weight: 600;
 }
 
-.board-item {
+#boardList {
+  display: grid;
+  gap: 6px;
+}
+
+.board-item,
+#boardList > button {
   display: block;
   width: 100%;
   text-align: left;
   padding: 13px;
-  margin-bottom: 5px;
   background: transparent;
-  border-radius: 9px;
-  color: #646a7b;
+  border-radius: 10px;
+  color: #62697a;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
 }
 
 .board-item.active,
-.board-item:hover {
+.board-item:hover,
+#boardList > button.active,
+#boardList > button:hover {
   background: #f0eeff;
   color: #6254e8;
+}
+
+#boardList > button:hover {
+  transform: translateX(2px);
+}
+
+#boardList > button:focus-visible {
+  outline: 2px solid #6254e8;
+  outline-offset: 2px;
 }
 
 /* MAIN */
@@ -140,6 +162,12 @@ button {
   gap: 7px;
 }
 
+.app-message {
+  margin: -18px 0 24px;
+  color: #858b9a;
+  font-size: 12px;
+}
+
 .member {
   padding: 7px 11px;
   background: #eae7ff;
@@ -189,24 +217,49 @@ button {
   min-height: 30px;
 }
 
-.task-card {
+.task-card,
+.task {
   background: white;
   padding: 17px;
   border-radius: 11px;
   border: 1px solid #e8eaf0;
   box-shadow: 0 3px 10px #252b4510;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
 }
 
-.task-card h4 {
+.task-card:hover,
+.task:hover {
+  border-color: #d7d2ff;
+  box-shadow: 0 8px 18px #252b4514;
+  transform: translateY(-2px);
+}
+
+.task-card h4,
+.task h4 {
   font-size: 14px;
   margin-bottom: 9px;
+  line-height: 1.4;
 }
 
-.task-card p {
+.task-card p,
+.task p {
   font-size: 12px;
   color: #858b9a;
   line-height: 1.5;
   margin-bottom: 15px;
+}
+
+.task small {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #f0eeff;
+  color: #6254e8;
+  font-size: 11px;
 }
 
 .task-footer {
@@ -333,4 +386,63 @@ dialog textarea {
   .header-actions {
     flex-wrap: wrap;
   }
+}
+
+/* LOGIN / REGISTER */
+.hidden {
+  display: none !important;
+}
+
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-box {
+  width: min(380px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px #20243820;
+}
+
+.auth-box h2 {
+  color: #6254e8;
+  margin-bottom: 6px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-box label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-box input {
+  padding: 12px;
+  border: 1px solid #dfe2eb;
+  border-radius: 8px;
+  outline-color: #6254e8;
+}
+
+.auth-message {
+  min-height: 16px;
+  color: #e05c67;
+  font-size: 13px;
+}
+
+.link-btn {
+  background: transparent;
+  color: #6254e8;
+  font-size: 13px;
 }

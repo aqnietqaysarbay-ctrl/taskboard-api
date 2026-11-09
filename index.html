@@ -5,10 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mini Trello</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="app">
+    <!-- LOGIN / REGISTER SCREEN -->
+    <div id="authScreen" class="auth-screen hidden">
+      <form id="authForm" class="auth-box">
+        <h2 id="authTitle">Login</h2>
+
+        <div id="nameField" class="field hidden">
+          <label for="authName">Name</label>
+          <input id="authName" placeholder="Your name" />
+        </div>
+
+        <div class="field">
+          <label for="authEmail">Email</label>
+          <input
+            id="authEmail"
+            type="email"
+            required
+            placeholder="alex@example.com"
+          />
+        </div>
+
+        <div class="field">
+          <label for="authPassword">Password</label>
+          <input
+            id="authPassword"
+            type="password"
+            required
+            placeholder="Your password"
+          />
+        </div>
+
+        <button type="submit" id="authSubmitBtn" class="primary-btn">
+          Login
+        </button>
+        <p id="authMessage" class="auth-message" role="status"></p>
+        <button type="button" id="authToggleBtn" class="link-btn">
+          No account? Register
+        </button>
+      </form>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app" class="app hidden">
       <aside class="sidebar">
         <h2>✦ TaskFlow</h2>
         <p class="section-label">WORKSPACE</p>
@@ -27,6 +67,7 @@
               + Invite Member
             </button>
             <button id="newTaskBtn" class="primary-btn">+ New Task</button>
+            <button id="logoutBtn" class="secondary-btn">Logout</button>
           </div>
         </header>
 
@@ -34,6 +75,12 @@
           <span>Team members:</span>
           <div id="memberList"></div>
         </section>
+        <p
+          id="appMessage"
+          class="app-message"
+          role="status"
+          aria-live="polite"
+        ></p>
 
         <section class="board">
           <div class="column">
@@ -127,6 +174,6 @@
         </div>
       </form>
     </dialog>
-    <script src="script.js" defer></script>
+    <script src="dist/script.js" defer></script>
   </body>
 </html>
